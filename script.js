@@ -30,6 +30,14 @@ const lecturesByDay = {
     { start: { h: 11, m: 10 }, end: { h: 13, m: 10 }, subject: 'MDM Lab', faculty: 'TBD', location: 'Room 6209' },
     { start: { h: 13, m: 10 }, end: { h: 14, m: 10 }, subject: 'Lunch Break', faculty: '', location: '' },
     { start: { h: 14, m: 10 }, end: { h: 16, m: 10 }, subject: 'AMC Lab', faculty: 'Gaadhe Sir', location: 'Room 6315' }
+  ],
+  Friday: [ // <-- Added this section
+    { start: { h: 10, m: 0 }, end: { h: 11, m: 0 }, subject: 'Digital Signal Processing', faculty: 'Chopade Sir', location: 'Room 6304' },
+    { start: { h: 11, m: 0 }, end: { h: 11, m: 10 }, subject: 'Break', faculty: '', location: '' },
+    { start: { h: 11, m: 10 }, end: { h: 12, m: 10 }, subject: 'ERTOS', faculty: 'Patil Mam', location: 'Room 6310' },
+    { start: { h: 12, m: 10 }, end: { h: 13, m: 10 }, subject: 'Remote Sensing and GIS', faculty: 'Rangari Sir', location: 'Room 9204' },
+    { start: { h: 13, m: 10 }, end: { h: 14, m: 10 }, subject: 'Lunch Break', faculty: '', location: '' },
+    { start: { h: 14, m: 10 }, end: { h: 16, m: 10 }, subject: 'CS Lab', faculty: 'Shirke Mam', location: 'Room 6508' }
   ]
 };
 
