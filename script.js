@@ -74,7 +74,6 @@ function displaySchedule() {
   document.getElementById('upcoming-lecture-info').textContent =
     upcoming ? formatLecture(upcoming) : 'No upcoming lectures today.';
 
-  showTodaysSchedule(); // Auto-show schedule for today
 }
 
 // Show full list of today's lectures
