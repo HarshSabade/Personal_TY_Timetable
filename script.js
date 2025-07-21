@@ -1,92 +1,68 @@
-// Monday lecture schedule for C2 batch
+// Monday schedule
 const lectures = [
   {
-    time: '9:00 AM - 10:00 AM',
-    subject: 'Communication Systems',
-    faculty: 'Ayane Sir',
-    location: 'Room 6304'
+    start: {h:9, m:0}, end: {h:10, m:0},
+    subject: 'Communication Systems', faculty: 'Ayane Sir', location: 'Room 6304'
   },
   {
-    time: '10:00 AM - 11:00 AM',
-    subject: 'Digital Signal Processing',
-    faculty: 'Chopade Sir',
-    location: 'Room 6304'
+    start: {h:10, m:0}, end: {h:11, m:0},
+    subject: 'Digital Signal Processing', faculty: 'Chopade Sir', location: 'Room 6304'
   },
   {
-    time: '11:00 AM - 12:00 PM',
-    subject: 'MDM',
-    faculty: 'TBD',
-    location: 'Room 6204'
+    start: {h:11, m:0}, end: {h:12, m:0},
+    subject: 'MDM', faculty: 'TBD', location: 'Room 6204'
   },
   {
-    time: '12:00 PM - 12:10 PM',
-    subject: 'Short Break',
-    faculty: '',
-    location: ''
+    start: {h:12, m:0}, end: {h:12, m:10},
+    subject: 'Short Break', faculty: '', location: ''
   },
   {
-    time: '12:10 PM - 1:10 PM',
-    subject: 'Remote Sensing and GIS',
-    faculty: 'Rangari Sir',
-    location: 'Room 9204'
+    start: {h:12, m:10}, end: {h:13, m:10},
+    subject: 'Remote Sensing and GIS', faculty: 'Rangari Sir', location: 'Room 9204'
   },
   {
-    time: '1:10 PM - 2:10 PM',
-    subject: 'Lunch Break',
-    faculty: '',
-    location: ''
+    start: {h:13, m:10}, end: {h:14, m:10},
+    subject: 'Lunch Break', faculty: '', location: ''
   },
   {
-    time: '2:10 PM - 4:10 PM',
-    subject: 'DSP Lab',
-    faculty: 'TBD',
-    location: 'Room 6013'
+    start: {h:14, m:10}, end: {h:16, m:10},
+    subject: 'DSP Lab', faculty: 'TBD', location: 'Room 6013'
   }
 ];
 
-// Function to display the current and upcoming lecture
-function displaySchedule() {
-  const currentTime = new Date();
-  const currentDay = new Date().toLocaleString('en-us', { weekday: 'long' });
-
-  // Find the current and upcoming lecture
-  const currentLecture = lectures.find(lecture => {
-    const lectureStartTime = new Date(currentTime.toDateString() + ' ' + lecture.time.split(' - ')[0]);
-    return lectureStartTime <= currentTime && lectureStartTime.getDay() === currentTime.getDay();
-  });
-
-  const upcomingLecture = lectures.find(lecture => {
-    const lectureStartTime = new Date(currentTime.toDateString() + ' ' + lecture.time.split(' - ')[0]);
-    return lectureStartTime > currentTime && lectureStartTime.getDay() === currentTime.getDay();
-  });
-
-  // Display current and upcoming lectures
-  if (currentLecture) {
-    document.getElementById('current-lecture-info').innerHTML = `${currentLecture.subject} with ${currentLecture.faculty} in ${currentLecture.location}`;
-  } else {
-    document.getElementById('current-lecture-info').innerHTML = 'No current lecture.';
-  }
-
-  if (upcomingLecture) {
-    document.getElementById('upcoming-lecture-info').innerHTML = `${upcomingLecture.subject} with ${upcomingLecture.faculty} in ${upcomingLecture.location}`;
-  } else {
-    document.getElementById('upcoming-lecture-info').innerHTML = 'No upcoming lectures.';
-  }
+function nowBetween(start, end) {
+  const now = new Date();
+  const startD = new Date(now);
+  startD.setHours(start.h, start.m, 0, 0);
+  const endD = new Date(now);
+  endD.setHours(end.h, end.m, 0, 0);
+  return now >= startD && now < endD;
 }
 
-// Function to show today's full schedule when button is clicked
-function showTodaysSchedule() {
-  const listElement = document.getElementById('todays-lectures-list');
-  listElement.innerHTML = '';
-
-  lectures.forEach(lecture => {
-    const listItem = document.createElement('li');
-    listItem.textContent = `${lecture.time} - ${lecture.subject} with ${lecture.faculty} in ${lecture.location}`;
-    listElement.appendChild(listItem);
+function displaySchedule() {
+  const current = lectures.find(l => nowBetween(l.start, l.end));
+  const upcoming = lectures.find(l => {
+    const now = new Date();
+    const startD = new Date(now);
+    startD.setHours(l.start.h, l.start.m, 0, 0);
+    return startD > now;
   });
 
+  document.getElementById('current-lecture-info').textContent =
+    current ? `${current.subject} with ${current.faculty} in ${current.location}` : 'No current lecture.';
+  document.getElementById('upcoming-lecture-info').textContent =
+    upcoming ? `${upcoming.subject} with ${upcoming.faculty} in ${upcoming.location}` : 'No upcoming lectures.';
+}
+
+function showTodaysSchedule() {
+  const list = document.getElementById('todays-lectures-list');
+  list.innerHTML = '';
+  lectures.forEach(l => {
+    list.innerHTML += `<li>${String(l.start.h).padStart(2,'0')}:${String(l.start.m).padStart(2,'0')} - ` +
+                      `${String(l.end.h).padStart(2,'0')}:${String(l.end.m).padStart(2,'0')} — ` +
+                      `${l.subject} with ${l.faculty} in ${l.location}</li>`;
+  });
   document.getElementById('todays-schedule').style.display = 'block';
 }
 
-// Call displaySchedule function on page load
 window.onload = displaySchedule;
