@@ -78,17 +78,23 @@ function displaySchedule() {
 
 // Show full list of today's lectures
 function showTodaysSchedule() {
+  const scheduleSection = document.getElementById('todays-schedule');
+  const lectureList = document.getElementById('todays-lectures-list');
+
+  // Toggle visibility
+  if (scheduleSection.style.display === 'block') {
+    scheduleSection.style.display = 'none';
+    return;
+  }
+
+  // Otherwise, show the section and update contents
+  scheduleSection.style.display = 'block';
+
   const now = new Date();
   const todayName = now.toLocaleDateString('en-US', { weekday: 'long' });
   const lectures = lecturesByDay[todayName] || [];
 
-  const scheduleSection = document.getElementById('todays-schedule');
-  const lectureList = document.getElementById('todays-lectures-list');
-
-  // Make the section visible
-  scheduleSection.style.display = 'block';
-
-  // Clear previous items
+  // Clear previous list
   lectureList.innerHTML = '';
 
   if (lectures.length === 0) {
