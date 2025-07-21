@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lecture Schedule - C2 Batch</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="schedule">
+    <h1>Lecture Schedule - C2 Batch</h1>
+
+    <!-- Current Lecture Section -->
+    <div id="current-lecture">
+      <h2>Current Lecture</h2>
+      <p id="current-lecture-info">Loading...</p>
+    </div>
+
+    <!-- Upcoming Lecture Section -->
+    <div id="upcoming-lecture">
+      <h2>Upcoming Lecture</h2>
+      <p id="upcoming-lecture-info">Loading...</p>
+    </div>
+
+    <!-- Button to show today's schedule -->
+    <button onclick="showTodaysSchedule()">Today's Schedule</button>
+
+    <!-- Today's Schedule Section -->
+    <div id="todays-schedule" style="display: none;">
+      <h2>Today's Schedule</h2>
+      <ul id="todays-lectures-list"></ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
